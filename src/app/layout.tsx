@@ -1,16 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-});
 
 export const metadata: Metadata = {
   title: "Multi-Token Portfolio Manager",
@@ -38,10 +27,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
-        <div className="min-h-screen bg-background text-foreground">
-          {children}
-        </div>
+      <body style={{ 
+        backgroundColor: '#111827', 
+        color: '#f9fafb', 
+        fontFamily: "'Inter', system-ui, sans-serif",
+        minHeight: '100vh',
+        margin: 0,
+        padding: 0
+      }}>
+        {children}
       </body>
     </html>
   );

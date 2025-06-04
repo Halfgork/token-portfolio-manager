@@ -3,23 +3,113 @@
 import Link from 'next/link';
 import { ArrowRight, TrendingUp, PieChart, Shield, BarChart3, Wallet, Zap } from 'lucide-react';
 
+// Inline styles to ensure they always work
+const styles = {
+  page: {
+    minHeight: '100vh',
+    backgroundColor: '#111827',
+    color: '#f9fafb',
+    fontFamily: "'Inter', system-ui, sans-serif"
+  },
+  header: {
+    borderBottom: '1px solid #374151',
+    padding: '1rem 0'
+  },
+  financialCard: {
+    backgroundColor: '#1f2937',
+    border: '1px solid #374151',
+    borderRadius: '0.5rem',
+    padding: '1.5rem',
+    color: '#f9fafb',
+    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+    transition: 'all 0.2s ease-in-out'
+  },
+  financialMetricLarge: {
+    fontFamily: "'JetBrains Mono', monospace",
+    fontSize: '2.25rem',
+    fontWeight: '700',
+    letterSpacing: '0.05em',
+    color: '#f9fafb'
+  },
+  financialLabel: {
+    fontSize: '0.875rem',
+    fontWeight: '500',
+    textTransform: 'uppercase' as const,
+    letterSpacing: '0.1em',
+    color: '#9ca3af',
+    marginBottom: '0.5rem'
+  },
+  profitPositive: {
+    color: '#10b981'
+  },
+  percentageBadge: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    padding: '0.125rem 0.625rem',
+    borderRadius: '9999px',
+    fontSize: '0.75rem',
+    fontWeight: '500'
+  },
+  percentagePositive: {
+    backgroundColor: 'rgba(16, 185, 129, 0.2)',
+    color: '#34d399',
+    border: '1px solid rgba(16, 185, 129, 0.3)'
+  },
+  btnPrimary: {
+    backgroundColor: '#3b82f6',
+    color: '#ffffff',
+    fontWeight: '500',
+    padding: '0.5rem 1rem',
+    borderRadius: '0.5rem',
+    border: 'none',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease-in-out',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textDecoration: 'none',
+    gap: '0.5rem'
+  },
+  btnOutline: {
+    backgroundColor: 'transparent',
+    color: '#f9fafb',
+    fontWeight: '500',
+    padding: '0.5rem 1rem',
+    borderRadius: '0.5rem',
+    border: '1px solid #374151',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease-in-out',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textDecoration: 'none'
+  }
+};
+
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div style={styles.page}>
       {/* Header */}
-      <header className="border-b border-border">
-        <div className="container-responsive py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
-                <PieChart className="w-5 h-5 text-white" />
+      <header style={styles.header}>
+        <div className="container-responsive">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <div style={{
+                width: '2rem',
+                height: '2rem',
+                background: 'linear-gradient(to right, #3b82f6, #2563eb)',
+                borderRadius: '0.5rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <PieChart style={{ width: '1.25rem', height: '1.25rem', color: 'white' }} />
               </div>
-              <span className="text-xl font-bold">Portfolio Manager</span>
+              <span style={{ fontSize: '1.25rem', fontWeight: '700', color: '#f9fafb' }}>
+                Portfolio Manager
+              </span>
             </div>
-            <Link 
-              href="/dashboard" 
-              className="btn-primary"
-            >
+            <Link href="/dashboard" style={styles.btnPrimary}>
               Launch App
             </Link>
           </div>
@@ -27,89 +117,149 @@ export default function LandingPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 lg:py-32">
+      <section style={{ padding: '5rem 0' }}>
         <div className="container-responsive">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent">
-              Multi-Token Portfolio Manager
+          <div style={{ textAlign: 'center', maxWidth: '64rem', margin: '0 auto' }}>
+            <h1 style={{
+              fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
+              fontWeight: '700',
+              marginBottom: '1.5rem',
+              color: '#f9fafb'
+            }}>
+              <span style={{
+                background: 'linear-gradient(to right, #3b82f6, #60a5fa)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}>
+                Multi-Token Portfolio Manager
+              </span>
             </h1>
-            <p className="text-xl lg:text-2xl text-muted-foreground mb-8 leading-relaxed">
+            <p style={{
+              fontSize: '1.25rem',
+              color: '#9ca3af',
+              marginBottom: '2rem',
+              lineHeight: '1.7',
+              maxWidth: '48rem',
+              margin: '0 auto 2rem auto'
+            }}>
               Manage your Stellar token portfolio with professional-grade analytics, 
               real-time tracking, and advanced risk management tools.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
-                href="/dashboard" 
-                className="btn-primary text-lg px-8 py-4 inline-flex items-center gap-2"
-              >
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1rem',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <Link href="/dashboard" style={{ ...styles.btnPrimary, fontSize: '1.125rem', padding: '1rem 2rem' }}>
                 Get Started
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight style={{ width: '1.25rem', height: '1.25rem' }} />
               </Link>
-              <Link 
-                href="#features" 
-                className="btn-outline text-lg px-8 py-4"
-              >
+              <Link href="#features" style={{ ...styles.btnOutline, fontSize: '1.125rem', padding: '1rem 2rem' }}>
                 Learn More
               </Link>
             </div>
           </div>
 
           {/* Dashboard Preview */}
-          <div className="mt-16 lg:mt-24">
-            <div className="financial-card max-w-6xl mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+          <div style={{ marginTop: '4rem' }}>
+            <div style={{ ...styles.financialCard, maxWidth: '72rem', margin: '0 auto' }}>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: '1.5rem',
+                marginBottom: '1.5rem'
+              }}>
                 {/* Portfolio Value */}
-                <div className="financial-card">
-                  <div className="financial-label">Total Portfolio Value</div>
-                  <div className="financial-metric-large profit-positive">$127,430.00</div>
-                  <div className="flex items-center gap-2 mt-2">
-                    <TrendingUp className="w-4 h-4 text-success-500" />
-                    <span className="percentage-badge percentage-positive">+12.4%</span>
-                    <span className="text-sm text-muted-foreground">24h</span>
+                <div style={styles.financialCard}>
+                  <div style={styles.financialLabel}>Total Portfolio Value</div>
+                  <div style={{ ...styles.financialMetricLarge, ...styles.profitPositive }}>
+                    $127,430.00
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem' }}>
+                    <TrendingUp style={{ width: '1rem', height: '1rem', color: '#10b981' }} />
+                    <span style={{ ...styles.percentageBadge, ...styles.percentagePositive }}>
+                      +12.4%
+                    </span>
+                    <span style={{ fontSize: '0.875rem', color: '#9ca3af' }}>24h</span>
                   </div>
                 </div>
 
                 {/* P&L */}
-                <div className="financial-card">
-                  <div className="financial-label">Unrealized P&L</div>
-                  <div className="financial-metric-large profit-positive">+$15,230.50</div>
-                  <div className="flex items-center gap-2 mt-2">
-                    <TrendingUp className="w-4 h-4 text-success-500" />
-                    <span className="percentage-badge percentage-positive">+13.6%</span>
-                    <span className="text-sm text-muted-foreground">Since inception</span>
+                <div style={styles.financialCard}>
+                  <div style={styles.financialLabel}>Unrealized P&L</div>
+                  <div style={{ ...styles.financialMetricLarge, ...styles.profitPositive }}>
+                    +$15,230.50
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem' }}>
+                    <TrendingUp style={{ width: '1rem', height: '1rem', color: '#10b981' }} />
+                    <span style={{ ...styles.percentageBadge, ...styles.percentagePositive }}>
+                      +13.6%
+                    </span>
+                    <span style={{ fontSize: '0.875rem', color: '#9ca3af' }}>Since inception</span>
                   </div>
                 </div>
 
                 {/* Active Tokens */}
-                <div className="financial-card">
-                  <div className="financial-label">Active Tokens</div>
-                  <div className="financial-metric-large">5</div>
-                  <div className="text-sm text-muted-foreground mt-2">
+                <div style={styles.financialCard}>
+                  <div style={styles.financialLabel}>Active Tokens</div>
+                  <div style={styles.financialMetricLarge}>5</div>
+                  <div style={{ fontSize: '0.875rem', color: '#9ca3af', marginTop: '0.5rem' }}>
                     Across Stellar network
                   </div>
                 </div>
               </div>
 
               {/* Token Allocation Chart Preview */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="financial-card">
-                  <h3 className="chart-title">Asset Allocation</h3>
-                  <div className="space-y-4">
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+                gap: '1.5rem'
+              }}>
+                <div style={styles.financialCard}>
+                  <h3 style={{
+                    fontSize: '1.125rem',
+                    fontWeight: '600',
+                    marginBottom: '1rem',
+                    color: '#f9fafb'
+                  }}>
+                    Asset Allocation
+                  </h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                     {[
-                      { token: 'USDC', percentage: 35, color: 'bg-primary-500', value: '$44,600' },
-                      { token: 'XLM', percentage: 25, color: 'bg-success-500', value: '$31,850' },
-                      { token: 'BTC', percentage: 20, color: 'bg-yellow-500', value: '$25,480' },
-                      { token: 'ETH', percentage: 15, color: 'bg-purple-500', value: '$19,115' },
-                      { token: 'SOL', percentage: 5, color: 'bg-pink-500', value: '$6,385' },
+                      { token: 'USDC', percentage: 35, color: '#3b82f6', value: '$44,600' },
+                      { token: 'XLM', percentage: 25, color: '#10b981', value: '$31,850' },
+                      { token: 'BTC', percentage: 20, color: '#f59e0b', value: '$25,480' },
+                      { token: 'ETH', percentage: 15, color: '#8b5cf6', value: '$19,115' },
+                      { token: 'SOL', percentage: 5, color: '#ec4899', value: '$6,385' },
                     ].map((token) => (
-                      <div key={token.token} className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className={`w-3 h-3 rounded-full ${token.color}`} />
-                          <span className="font-medium">{token.token}</span>
+                      <div key={token.token} style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between'
+                      }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                          <div style={{
+                            width: '0.75rem',
+                            height: '0.75rem',
+                            borderRadius: '50%',
+                            backgroundColor: token.color
+                          }} />
+                          <span style={{ fontWeight: '500', color: '#f9fafb' }}>{token.token}</span>
                         </div>
-                        <div className="text-right">
-                          <div className="font-mono font-semibold">{token.value}</div>
-                          <div className="text-sm text-muted-foreground">{token.percentage}%</div>
+                        <div style={{ textAlign: 'right' }}>
+                          <div style={{
+                            fontFamily: "'JetBrains Mono', monospace",
+                            fontWeight: '600',
+                            color: '#f9fafb'
+                          }}>
+                            {token.value}
+                          </div>
+                          <div style={{ fontSize: '0.875rem', color: '#9ca3af' }}>
+                            {token.percentage}%
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -117,21 +267,41 @@ export default function LandingPage() {
                 </div>
 
                 {/* Performance Chart Preview */}
-                <div className="financial-card">
-                  <h3 className="chart-title">Performance (30D)</h3>
-                  <div className="h-48 flex items-end gap-2">
+                <div style={styles.financialCard}>
+                  <h3 style={{
+                    fontSize: '1.125rem',
+                    fontWeight: '600',
+                    marginBottom: '1rem',
+                    color: '#f9fafb'
+                  }}>
+                    Performance (30D)
+                  </h3>
+                  <div style={{
+                    height: '12rem',
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    gap: '0.125rem'
+                  }}>
                     {Array.from({ length: 30 }, (_, i) => (
                       <div 
                         key={i}
-                        className="bg-primary-500/30 w-2 rounded-t"
-                        style={{ 
+                        style={{
+                          backgroundColor: 'rgba(59, 130, 246, 0.3)',
+                          width: '0.5rem',
+                          borderRadius: '0.125rem 0.125rem 0 0',
                           height: `${Math.random() * 80 + 20}%`,
-                          opacity: Math.random() * 0.5 + 0.5 
+                          opacity: Math.random() * 0.5 + 0.5
                         }}
                       />
                     ))}
                   </div>
-                  <div className="flex justify-between text-sm text-muted-foreground mt-2">
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    fontSize: '0.875rem',
+                    color: '#9ca3af',
+                    marginTop: '0.5rem'
+                  }}>
                     <span>30 days ago</span>
                     <span>Today</span>
                   </div>
@@ -143,13 +313,23 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 bg-secondary-900/30">
+      <section style={{ padding: '5rem 0', backgroundColor: 'rgba(31, 41, 55, 0.3)' }}>
         <div className="container-responsive">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-4">
+          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+            <h2 style={{
+              fontSize: 'clamp(2rem, 4vw, 3rem)',
+              fontWeight: '700',
+              marginBottom: '1rem',
+              color: '#f9fafb'
+            }}>
               Professional Portfolio Management
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p style={{
+              fontSize: '1.25rem',
+              color: '#9ca3af',
+              maxWidth: '48rem',
+              margin: '0 auto'
+            }}>
               Everything you need to track, analyze, and optimize your Stellar token investments 
               with institutional-grade tools and real-time insights.
             </p>
@@ -188,12 +368,30 @@ export default function LandingPage() {
                 description: 'Efficient multi-contract operations with batch calls for better performance and reduced transaction costs.',
               },
             ].map((feature, index) => (
-              <div key={index} className="financial-card text-center">
-                <div className="w-12 h-12 bg-primary-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <feature.icon className="w-6 h-6 text-primary-400" />
+              <div key={index} style={{ ...styles.financialCard, textAlign: 'center' }}>
+                <div style={{
+                  width: '3rem',
+                  height: '3rem',
+                  backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                  borderRadius: '0.5rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 1rem auto'
+                }}>
+                  <feature.icon style={{ width: '1.5rem', height: '1.5rem', color: '#3b82f6' }} />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+                <h3 style={{
+                  fontSize: '1.25rem',
+                  fontWeight: '600',
+                  marginBottom: '0.75rem',
+                  color: '#f9fafb'
+                }}>
+                  {feature.title}
+                </h3>
+                <p style={{ color: '#9ca3af', lineHeight: '1.6' }}>
+                  {feature.description}
+                </p>
               </div>
             ))}
           </div>
@@ -201,24 +399,30 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20">
+      <section style={{ padding: '5rem 0' }}>
         <div className="container-responsive">
-          <div className="financial-card text-center max-w-4xl mx-auto">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-4">
+          <div style={{ ...styles.financialCard, textAlign: 'center', maxWidth: '64rem', margin: '0 auto' }}>
+            <h2 style={{
+              fontSize: 'clamp(2rem, 4vw, 3rem)',
+              fontWeight: '700',
+              marginBottom: '1rem',
+              color: '#f9fafb'
+            }}>
               Ready to Start Managing?
             </h2>
-            <p className="text-xl text-muted-foreground mb-8">
+            <p style={{
+              fontSize: '1.25rem',
+              color: '#9ca3af',
+              marginBottom: '2rem'
+            }}>
               Connect your Stellar wallet and start tracking your token portfolio with 
               professional-grade tools and real-time insights.
             </p>
-            <Link 
-              href="/dashboard" 
-              className="btn-primary text-lg px-8 py-4 inline-flex items-center gap-2"
-            >
+            <Link href="/dashboard" style={{ ...styles.btnPrimary, fontSize: '1.125rem', padding: '1rem 2rem' }}>
               Launch Portfolio Manager
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight style={{ width: '1.25rem', height: '1.25rem' }} />
             </Link>
-            <div className="mt-6 text-sm text-muted-foreground">
+            <div style={{ marginTop: '1.5rem', fontSize: '0.875rem', color: '#9ca3af' }}>
               <p>Works with Freighter wallet • Stellar Testnet ready • No registration required</p>
             </div>
           </div>
@@ -226,16 +430,30 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border py-8">
+      <footer style={{ borderTop: '1px solid #374151', padding: '2rem 0' }}>
         <div className="container-responsive">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center space-x-2 mb-4 md:mb-0">
-              <div className="w-6 h-6 bg-gradient-to-r from-primary-500 to-primary-600 rounded flex items-center justify-center">
-                <PieChart className="w-4 h-4 text-white" />
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '1rem'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <div style={{
+                width: '1.5rem',
+                height: '1.5rem',
+                background: 'linear-gradient(to right, #3b82f6, #2563eb)',
+                borderRadius: '0.25rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <PieChart style={{ width: '1rem', height: '1rem', color: 'white' }} />
               </div>
-              <span className="font-semibold">Portfolio Manager</span>
+              <span style={{ fontWeight: '600', color: '#f9fafb' }}>Portfolio Manager</span>
             </div>
-            <div className="text-sm text-muted-foreground">
+            <div style={{ fontSize: '0.875rem', color: '#9ca3af' }}>
               Built for Stellar • Powered by Soroban
             </div>
           </div>
