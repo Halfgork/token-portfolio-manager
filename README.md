@@ -28,7 +28,6 @@ A professional-grade portfolio management platform for Stellar token assets with
 - **Soroban Smart Contracts** for token management
 - **Multi-contract architecture** for different token types
 - **No WASM files** in frontend (contracts deployed separately)
-
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -36,6 +35,7 @@ A professional-grade portfolio management platform for Stellar token assets with
 - Node.js 18+ and npm
 - Git
 - Stellar Testnet account (for development)
+- Rust and Soroban CLI (for contract deployment)
 
 ### Installation
 
@@ -60,12 +60,11 @@ Navigate to [http://localhost:3000](http://localhost:3000)
 
 ## 📋 Smart Contract Setup
 
-The frontend interacts with deployed Soroban token contracts. Follow these steps to deploy contracts:
+The project includes the [Soroban Token Contract](https://github.com/Halfgork/soroban-token-contract) in the `contracts/soroban-token-contract` directory.
 
-### 1. Clone the Token Contract Repository
+### 1. Navigate to Contract Directory
 ```bash
-git clone https://github.com/Halfgork/soroban-token-contract
-cd soroban-token-contract
+cd contracts/soroban-token-contract
 ```
 
 ### 2. Build the Contract
@@ -134,38 +133,45 @@ The app supports two connection methods:
 ## 📁 Project Structure
 
 ```
-src/
-├── app/                    # Next.js App Router pages
-│   ├── dashboard/          # Portfolio dashboard
-│   ├── tokens/            # Token management pages
-│   ├── analytics/         # Advanced analytics
-│   ├── transactions/      # Transaction history
-│   ├── settings/          # Portfolio settings
-│   └── reports/           # Export and reports
-├── components/            # React components
-│   ├── ui/               # Reusable UI components
-│   ├── portfolio/        # Portfolio-specific components
-│   ├── analytics/        # Analytics components
-│   ├── layout/           # Layout components
-│   └── shared/           # Shared components
-├── lib/                  # Core libraries
-│   ├── stellar/          # Stellar/Soroban integration
-│   ├── calculations.ts   # Portfolio calculations
-│   ├── exports.ts        # Export functionality
-│   └── utils.ts          # Utility functions
-├── stores/               # Zustand state stores
-│   ├── walletStore.ts    # Wallet connection state
-│   ├── portfolioStore.ts # Portfolio data state
-│   ├── tokenStore.ts     # Token management state
-│   └── priceStore.ts     # Price data state
-└── types/                # TypeScript type definitions
-    ├── portfolio.ts      # Portfolio types
-    ├── token.ts          # Token types
-    ├── stellar.ts        # Stellar SDK types
-    └── analytics.ts      # Analytics types
+├── contracts/
+│   └── soroban-token-contract/     # Cloned Soroban token contract
+│       ├── src/                    # Contract source code
+│       ├── Cargo.toml             # Rust project configuration
+│       └── README.md              # Contract documentation
+├── src/
+│   ├── app/                       # Next.js App Router pages
+│   │   ├── dashboard/             # Portfolio dashboard
+│   │   ├── tokens/               # Token management pages
+│   │   ├── analytics/            # Advanced analytics
+│   │   ├── transactions/         # Transaction history
+│   │   ├── settings/             # Portfolio settings
+│   │   └── reports/              # Export and reports
+│   ├── components/               # React components
+│   │   ├── ui/                  # Reusable UI components
+│   │   ├── portfolio/           # Portfolio-specific components
+│   │   ├── analytics/           # Analytics components
+│   │   ├── layout/              # Layout components
+│   │   └── shared/              # Shared components
+│   ├── lib/                     # Core libraries
+│   │   ├── stellar/             # Stellar/Soroban integration
+│   │   ├── calculations.ts      # Portfolio calculations
+│   │   ├── exports.ts           # Export functionality
+│   │   └── utils.ts             # Utility functions
+│   ├── stores/                  # Zustand state stores
+│   │   ├── walletStore.ts       # Wallet connection state
+│   │   ├── portfolioStore.ts    # Portfolio data state
+│   │   ├── tokenStore.ts        # Token management state
+│   │   └── priceStore.ts        # Price data state
+│   └── types/                   # TypeScript type definitions
+│       ├── portfolio.ts         # Portfolio types
+│       ├── token.ts             # Token types
+│       ├── stellar.ts           # Stellar SDK types
+│       └── analytics.ts         # Analytics types
 ```
 
 ## 🎨 Design System
+
+The application features a professional financial dashboard design with:
 
 ### Colors
 - **Primary**: #3B82F6 (blue) - main actions and highlights
@@ -180,14 +186,27 @@ src/
 - **UI Text**: Inter for readability
 - **Financial Metrics**: Large, bold formatting with color coding
 
-## 🔗 API Integration
+## 🔗 Smart Contract Methods
 
-The portfolio manager is designed to work with:
+The integrated [Soroban Token Contract](https://github.com/Halfgork/soroban-token-contract) provides:
 
-- **Soroban RPC**: For smart contract interactions
-- **Price Feeds**: Ready for integration with price data providers
-- **Transaction History**: Via Stellar Horizon API
-- **Portfolio Analytics**: Custom calculation engine
+### Core Token Functions
+- `balance(id)` - Get token balance
+- `transfer(from, to, amount)` - Transfer tokens
+- `approve(from, spender, amount, expiration_ledger)` - Approve spending
+- `allowance(from, spender)` - Check allowance
+
+### Admin Functions
+- `initialize(admin, decimal, name, symbol)` - Initialize contract
+- `mint(to, amount)` - Mint new tokens
+- `set_admin(new_admin)` - Change admin
+- `freeze_account(account)` - Freeze account
+- `unfreeze_account(account)` - Unfreeze account
+
+### Metadata Functions
+- `name()` - Get token name
+- `symbol()` - Get token symbol  
+- `decimals()` - Get decimal places
 
 ## 🛠️ Development
 
@@ -198,6 +217,13 @@ The portfolio manager is designed to work with:
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
 - `npm run type-check` - Run TypeScript checks
+
+### Contract Development
+
+1. Navigate to contract directory: `cd contracts/soroban-token-contract`
+2. Build: `soroban contract build`
+3. Test: `cargo test`
+4. Deploy: Follow deployment instructions above
 
 ### Code Style
 
@@ -226,6 +252,7 @@ The app can be deployed to any platform supporting Next.js:
 - **Read-only by Default**: Contract calls are simulated before submission
 - **Testnet First**: Always test on Stellar Testnet before mainnet
 - **HTTPS Required**: For wallet connections in production
+- **Contract Security**: Uses audited Soroban token standard
 
 ## 🤝 Contributing
 
@@ -245,6 +272,7 @@ For questions and support:
 - Check the GitHub Issues
 - Review the Stellar documentation
 - Join the Stellar Discord community
+- Contract documentation: `contracts/soroban-token-contract/README.md`
 
 ## 🗺️ Roadmap
 
@@ -256,7 +284,9 @@ For questions and support:
 - [ ] Multiple portfolio support
 - [ ] DeFi protocol integrations
 - [ ] Tax reporting features
+- [ ] Contract upgrade mechanisms
+- [ ] Advanced admin features
 
 ---
 
-Built with ❤️ for the Stellar ecosystem
+Built with ❤️ for the Stellar ecosystem • Contract: [Soroban Token Contract](https://github.com/Halfgork/soroban-token-contract)

@@ -2,6 +2,7 @@ import { ContractInfo } from '@/types/stellar';
 
 // Multiple token contract addresses for different deployed instances
 // These will be populated after deploying the soroban-token-contract
+// Contract source: contracts/soroban-token-contract (cloned from https://github.com/Halfgork/soroban-token-contract)
 export const TOKEN_CONTRACTS: Record<string, ContractInfo> = {
   USDC: {
     contractAddress: 'CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC', // Replace with actual deployed address
@@ -63,15 +64,14 @@ export const isValidContractAddress = (address: string): boolean => {
   return /^C[A-Z0-9]{55}$/.test(address);
 };
 
-// Contract deployment instructions
+// Contract deployment instructions using the cloned repository
 export const DEPLOYMENT_INSTRUCTIONS = `
-To deploy token contracts:
+To deploy token contracts using the cloned repository:
 
-1. Clone the soroban-token-contract repository:
-   git clone https://github.com/Halfgork/soroban-token-contract
+1. Navigate to the contract directory:
+   cd contracts/soroban-token-contract
 
 2. Build the contract:
-   cd soroban-token-contract
    soroban contract build
 
 3. Deploy multiple instances for different tokens:
@@ -93,8 +93,28 @@ To deploy token contracts:
 
 5. Update the contract addresses in this file with the deployed addresses.
 
+Available contract methods from the Soroban Token Contract:
+- initialize(admin, decimal, name, symbol)
+- mint(to, amount) [admin only]
+- set_admin(new_admin) [admin only]
+- freeze_account(account) [admin only]
+- unfreeze_account(account) [admin only]
+- transfer(from, to, amount)
+- transfer_from(spender, from, to, amount)
+- approve(from, spender, amount, expiration_ledger)
+- burn(from, amount)
+- burn_from(spender, from, amount)
+- balance(id)
+- allowance(from, spender)
+- decimals()
+- name()
+- symbol()
+
 Note: Replace YOUR_SECRET_KEY and YOUR_PUBLIC_KEY with actual values.
 Replace CONTRACT_ADDRESS with the deployed contract address from step 3.
+
+The contract source code is available at: contracts/soroban-token-contract/
+Repository: https://github.com/Halfgork/soroban-token-contract
 `;
 
 export default TOKEN_CONTRACTS; 

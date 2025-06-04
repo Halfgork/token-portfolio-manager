@@ -40,12 +40,24 @@
   html {
     @apply scroll-smooth;
   }
+  
+  /* Ensure proper font variables are available */
+  .font-mono {
+    font-family: var(--font-mono), ui-monospace, 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+  }
+  
+  .font-sans {
+    font-family: var(--font-inter), Inter, system-ui, -apple-system, sans-serif;
+  }
 }
 
 @layer components {
   /* Financial Dashboard Components */
   .financial-card {
     @apply bg-card border border-border rounded-lg shadow-financial p-6 transition-all duration-200 hover:shadow-financial-lg;
+    background-color: hsl(var(--card));
+    border-color: hsl(var(--border));
+    color: hsl(var(--card-foreground));
   }
   
   .financial-metric {
@@ -58,18 +70,22 @@
   
   .financial-label {
     @apply text-sm font-medium text-muted-foreground uppercase tracking-wider;
+    color: hsl(var(--muted-foreground));
   }
   
   .profit-positive {
     @apply text-success-500;
+    color: #10b981;
   }
   
   .profit-negative {
     @apply text-danger-500;
+    color: #ef4444;
   }
   
   .profit-neutral {
     @apply text-muted-foreground;
+    color: hsl(var(--muted-foreground));
   }
   
   /* Percentage badges */
@@ -79,19 +95,29 @@
   
   .percentage-positive {
     @apply bg-success-900/20 text-success-400 border border-success-800/30;
+    background-color: rgba(6, 78, 59, 0.2);
+    color: #34d399;
+    border-color: rgba(6, 78, 59, 0.3);
   }
   
   .percentage-negative {
     @apply bg-danger-900/20 text-danger-400 border border-danger-800/30;
+    background-color: rgba(127, 29, 29, 0.2);
+    color: #f87171;
+    border-color: rgba(127, 29, 29, 0.3);
   }
   
   .percentage-neutral {
     @apply bg-secondary-800/30 text-secondary-400 border border-secondary-700/30;
+    background-color: hsl(var(--secondary) / 0.3);
+    color: hsl(var(--secondary-foreground) / 0.7);
+    border-color: hsl(var(--border));
   }
   
   /* Loading states */
   .skeleton {
-    @apply animate-pulse bg-secondary-800/50 rounded;
+    @apply animate-pulse rounded;
+    background-color: hsl(var(--muted) / 0.5);
   }
   
   .shimmer {
@@ -106,37 +132,76 @@
   
   /* Button variants */
   .btn-primary {
-    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+  
+  .btn-primary:hover {
+    background-color: hsl(var(--primary) / 0.9);
   }
   
   .btn-secondary {
-    @apply bg-secondary-700 hover:bg-secondary-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    background-color: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+  }
+  
+  .btn-secondary:hover {
+    background-color: hsl(var(--secondary) / 0.8);
   }
   
   .btn-outline {
-    @apply border border-border hover:bg-secondary-800 text-foreground font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply border font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    border-color: hsl(var(--border));
+    color: hsl(var(--foreground));
+  }
+  
+  .btn-outline:hover {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
   }
   
   .btn-ghost {
-    @apply hover:bg-secondary-800 text-muted-foreground hover:text-foreground font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .btn-ghost:hover {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
   }
   
   /* Navigation */
   .nav-link {
-    @apply flex items-center gap-3 px-3 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary-800 transition-colors duration-200;
+    @apply flex items-center gap-3 px-3 py-2 rounded-lg transition-colors duration-200;
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .nav-link:hover {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
   }
   
   .nav-link.active {
-    @apply text-primary-400 bg-primary-900/30;
+    color: hsl(var(--primary));
+    background-color: hsl(var(--primary) / 0.1);
   }
   
   /* Tables */
   .table-header {
-    @apply bg-secondary-800/50 text-xs font-medium text-muted-foreground uppercase tracking-wider;
+    @apply text-xs font-medium uppercase tracking-wider;
+    background-color: hsl(var(--muted) / 0.5);
+    color: hsl(var(--muted-foreground));
   }
   
   .table-row {
-    @apply border-b border-border hover:bg-secondary-800/30 transition-colors duration-150;
+    @apply border-b transition-colors duration-150;
+    border-color: hsl(var(--border));
+  }
+  
+  .table-row:hover {
+    background-color: hsl(var(--muted) / 0.3);
   }
   
   .table-cell {
@@ -166,11 +231,26 @@
   
   /* Form elements */
   .form-input {
-    @apply bg-secondary-800 border border-border rounded-lg px-3 py-2 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200;
+    @apply border rounded-lg px-3 py-2 transition-all duration-200;
+    background-color: hsl(var(--input));
+    border-color: hsl(var(--border));
+    color: hsl(var(--foreground));
+  }
+  
+  .form-input::placeholder {
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .form-input:focus {
+    outline: none;
+    ring: 2px;
+    ring-color: hsl(var(--primary));
+    border-color: transparent;
   }
   
   .form-label {
-    @apply text-sm font-medium text-foreground mb-2 block;
+    @apply text-sm font-medium mb-2 block;
+    color: hsl(var(--foreground));
   }
   
   /* Status indicators */
@@ -179,20 +259,21 @@
   }
   
   .status-online {
-    @apply bg-success-500;
+    background-color: #10b981;
   }
   
   .status-offline {
-    @apply bg-danger-500;
+    background-color: #ef4444;
   }
   
   .status-pending {
-    @apply bg-yellow-500;
+    background-color: #f59e0b;
   }
   
   /* Responsive utilities */
   .container-responsive {
     @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1200px;
   }
   
   .grid-responsive {
@@ -225,15 +306,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-secondary-900;
+  background-color: hsl(var(--muted));
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-secondary-600 rounded-full;
+  background-color: hsl(var(--muted-foreground));
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-secondary-500;
+  background-color: hsl(var(--muted-foreground) / 0.8);
 }
 
 /* Print styles */
@@ -243,6 +325,7 @@
   }
   
   .financial-card {
-    @apply border border-gray-300 shadow-none;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
   }
 }
